@@ -1,0 +1,42 @@
+{% extends 'syit/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+    <meta charset="UTF-8">
+    <title>{{ data.name }}</title>
+</head>
+<body>
+{% block content %}
+<div style="display: inline-block;">
+    <div>
+    <img style="padding-bottom:3%" src="{{ MEDIA_ROOT }}/user_images/{{ data.image1 }}" width="200px" height="200px">
+    <a style="padding-bottom:3%">{{ data.name }}</a>
+    <a style="padding-bottom:5%">{{ data.price }}</a>
+    <button style="padding-bottom:10%">В корзину</button>
+    <a>{{ data.text }}</a>
+        </div>
+    <div>
+    <a>Может понравиться</a>
+    {% for i in all %}
+        <div style="float:left;display: grid; padding: 2%; wigth: 25%">
+        {% if i.rasmer %}
+        <a href="/clothes/{{ i.id }}">
+        {% else %}
+        <a href="/game/{{ i.id }}">
+        {% endif %}
+            <img style="padding-bottom:3%" src="{{ MEDIA_ROOT }}/user_images/{{ i.image1 }}" width="200px" height="200px">
+        </a>
+        <a style="padding-bottom:3%; width:200px">{{ i.name }}</a>
+        <a style="padding-bottom:10%">{{ i.price }} руб.</a>
+        <div>
+                <p onclick="like({{ i.id }})"><img id="{{ i.id }}" src="{% static 'lova_no.JPG' %}" width="30px" height="30px"></p>
+        <button id = "{{ i.id }}_1" onclick="buy({{ i.id }}, 'b')">В корзину</button>
+                </div>
+        </div>
+    {% endfor %}
+        </div>
+</div>
+{% endblock %}
+</body>
+</html>
